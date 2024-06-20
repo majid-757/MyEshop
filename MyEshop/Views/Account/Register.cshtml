@@ -4,6 +4,8 @@
     ViewBag.Title = "ثبت نام در سایت";
 }
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <h2>ثبت نام در سایت</h2>
 
 @using (Html.BeginForm()) 
@@ -45,6 +47,19 @@
                 @Html.ValidationMessageFor(model => model.RePassword, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        
+        <div class="form-group">
+	        <label class="control-label col-md-2">
+		        Recaptcha
+	        </label>
+	        <div class="col-md-10">
+		        <div class="g-recaptcha" data-sitekey="6Lfpaf0pAAAAAGGbjmL0a7PpDcHe3bj02ThBjA23"></div>
+		        @*<span class="text-danger">@ViewBag.Message</span>*@
+		        @Html.ValidationMessage("reCaptcha", new { @class = "text-danger" })
+	        </div>
+        </div>
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

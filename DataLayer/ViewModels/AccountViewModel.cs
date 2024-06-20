@@ -34,4 +34,25 @@ namespace DataLayer.ViewModels
         [Compare("Password", ErrorMessage = "کلمه های عبور مغایرت دارند")]
         public string RePassword { get; set; }
     }
+
+
+    public class LoginViewModel
+    {
+
+        [Display(Name = "ایمیل")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [EmailAddress(ErrorMessage = "")]
+        public string Email { get; set; }
+
+
+        [Display(Name = "کلمه عبور")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+
+        [Display(Name = "مرا به خاطر بسپار")]
+        public bool RememberMe { get; set; }
+
+    }
 }

@@ -14,6 +14,8 @@ namespace MyEshop.Controllers
     {
         private MyEshop_DBEntities db = new MyEshop_DBEntities();
         // GET: Account
+
+        [Route("Register")]
         public ActionResult Register()
         {
             return View();
@@ -22,9 +24,24 @@ namespace MyEshop.Controllers
 
 
         [HttpPost]
+        [Route("Register")]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterViewModel register)
+        public ActionResult Register(RegisterViewModel register, string gRecaptchaResponse)
         {
+
+
+            //var recaptchaHelper = new RecaptchaHelper();
+            //var captchaResponse = recaptchaHelper.ValidateRecaptcha(gRecaptchaResponse);
+
+            //System.Diagnostics.Debug.WriteLine("reCAPTCHA Success: " + captchaResponse.Success);
+
+            //if (!captchaResponse.Success)
+            //{
+            //    ModelState.AddModelError("reCaptcha", "لطفا reCAPTCHA را تایید کنید.");
+            //    return View();
+            //}
+
+
             if (ModelState.IsValid)
             {
                 if (!db.Users.Any(u=>u.Email == register.Email.Trim().ToLower()))
@@ -41,6 +58,11 @@ namespace MyEshop.Controllers
                     };
                     db.Users.Add(user);
                     db.SaveChanges();
+
+                    // send active email
+                    string body = PartialToStringClass.RenderPartialView("ManageEmails", "ActivationEmail", user);
+                    SendEmail.Send(user.Email, "ایمیل فعال سازی", body);
+                    // end active email
                     return View("SuccessRegister", user);
                 }
                 else
@@ -54,9 +76,66 @@ namespace MyEshop.Controllers
 
 
 
+        [Route("Login")]
         public ActionResult Login()
         {
+
             return View();
+        }
+
+
+        [HttpPost]
+        [Route("Login")]
+        public ActionResult Login(LoginViewModel login)
+        {
+            if (ModelState.IsValid)
+            {
+                string hashPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(login.Password, "SHA256");
+                var user = db.Users.SingleOrDefault(u => u.Email == login.Email && u.Password == hashPassword);
+                if (user!=null)
+                {
+                    if (user.IsActive)
+                    {
+                        FormsAuthentication.SetAuthCookie(user.UserName, login.RememberMe);
+                        return Redirect("/");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Email", "حساب کاربری شما فعال نشده است");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "کاربری با اطلاعات  وارد شده یافت نشد");
+                }
+            }
+
+            return View(login);
+        }
+
+
+
+        public ActionResult ActiveUser(string id)
+        {
+            var user = db.Users.SingleOrDefault(u => u.ActiveCode == id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            user.IsActive = true;
+            user.ActiveCode = Guid.NewGuid().ToString();
+            db.SaveChanges();
+            ViewBag.UserName = user.UserName;
+            return View();
+        }
+
+
+
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
+            return Redirect("/");
         }
     }
 }
