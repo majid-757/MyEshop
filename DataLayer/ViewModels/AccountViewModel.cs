@@ -55,4 +55,59 @@ namespace DataLayer.ViewModels
         public bool RememberMe { get; set; }
 
     }
+
+
+
+    public class ForgotPasswordViewModel
+    {
+        [Display(Name = "ایمیل")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [EmailAddress(ErrorMessage = "")]
+        public string Email { get; set; }
+    }
+
+
+    public class RecoveryPasswordViewModel
+    {
+        [Display(Name = "کلمه ی عبور جدید ")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+
+
+
+        [Display(Name = "تکرار کلمه ی عبور جدید")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "کلمه های عبور مغایرت دارند")]
+        public string RePassword { get; set; }
+    }
+
+
+
+    public class ChangePasswordViewModel
+    {
+
+        [Display(Name = "کلمه ی عبور فعلی ")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [DataType(DataType.Password)]
+        public string OldPassword { get; set; }
+
+
+
+        [Display(Name = "کلمه ی عبور جدید ")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+
+
+        [Display(Name = "تکرار کلمه ی عبور جدید")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "کلمه های عبور مغایرت دارند")]
+        public string RePassword { get; set; }
+    }
+
 }

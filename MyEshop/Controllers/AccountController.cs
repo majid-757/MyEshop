@@ -86,7 +86,7 @@ namespace MyEshop.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public ActionResult Login(LoginViewModel login)
+        public ActionResult Login(LoginViewModel login, string ReturnUrl="/")
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace MyEshop.Controllers
                     if (user.IsActive)
                     {
                         FormsAuthentication.SetAuthCookie(user.UserName, login.RememberMe);
-                        return Redirect("/");
+                        return Redirect(ReturnUrl);
                     }
                     else
                     {
@@ -136,6 +136,72 @@ namespace MyEshop.Controllers
         {
             FormsAuthentication.SignOut();
             return Redirect("/");
+        }
+
+
+        [Route("ForgotPassword")]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+
+
+        [Route("ForgotPassword")]
+        [HttpPost]
+        public ActionResult ForgotPassword(ForgotPasswordViewModel forgot)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = db.Users.SingleOrDefault(u => u.Email == forgot.Email);
+                if (user !=null)
+                {
+                    if (user.IsActive)
+                    {
+                        string bodyEmail =
+                            PartialToStringClass.RenderPartialView("ManageEmails", "RecoveryPassword", user);
+                        SendEmail.Send(user.Email, "بازیابی کلمه عبور ", bodyEmail);
+                        return View("SuccessForgotPassword", user);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Email", "حساب کاربری شما فعال نیست");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "کاربری یافت نشد.");
+                }
+            }
+            return View();
+        }
+
+
+
+        public ActionResult RecoveryPassword(string id)
+        {
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public ActionResult RecoveryPassword(string id, RecoveryPasswordViewModel recovery)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = db.Users.SingleOrDefault(u => u.ActiveCode == id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+
+                user.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(recovery.Password, "SHA256");
+                user.ActiveCode = Guid.NewGuid().ToString();
+                db.SaveChanges();
+                return Redirect("/Login?recovery=true");
+            }
+            return View();
         }
     }
 }
