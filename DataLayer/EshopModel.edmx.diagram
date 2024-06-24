@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="MyEshop_DBModel.Roles" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyEshop_DBModel.Users" Width="1.5" PointX="3" PointY="5.125" />
         <AssociationConnector Association="MyEshop_DBModel.FK_Users_Roles" />
+        <EntityTypeShape EntityType="MyEshop_DBModel.Product_Groups" Width="1.5" PointX="3.375" PointY="0.75" />
+        <AssociationConnector Association="MyEshop_DBModel.FK_Product_Groups_Product_Groups" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
