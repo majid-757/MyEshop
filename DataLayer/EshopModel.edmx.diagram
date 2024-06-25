@@ -10,6 +10,14 @@
         <AssociationConnector Association="MyEshop_DBModel.FK_Users_Roles" />
         <EntityTypeShape EntityType="MyEshop_DBModel.Product_Groups" Width="1.5" PointX="3.375" PointY="0.75" />
         <AssociationConnector Association="MyEshop_DBModel.FK_Product_Groups_Product_Groups" />
+        <EntityTypeShape EntityType="MyEshop_DBModel.Product_Galleries" Width="1.5" PointX="7.625" PointY="7.75" />
+        <EntityTypeShape EntityType="MyEshop_DBModel.Product_Selected_Groups" Width="1.5" PointX="7.625" PointY="2.5" />
+        <EntityTypeShape EntityType="MyEshop_DBModel.Product_Tags" Width="1.5" PointX="7.625" PointY="5.25" />
+        <EntityTypeShape EntityType="MyEshop_DBModel.Products" Width="1.5" PointX="5.375" PointY="3.25" />
+        <AssociationConnector Association="MyEshop_DBModel.FK_Product_Galleries_Products" />
+        <AssociationConnector Association="MyEshop_DBModel.FK_Product_Selected_Groups_Product_Groups" />
+        <AssociationConnector Association="MyEshop_DBModel.FK_Product_Selected_Groups_Products" />
+        <AssociationConnector Association="MyEshop_DBModel.FK_Product_Tags_Products" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
