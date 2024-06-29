@@ -114,6 +114,10 @@ namespace MyEshop.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.SelectedGroups = products.Product_Selected_Groups.ToList();
+            ViewBag.Groups = db.Product_Groups.ToList();
+            ViewBag.Tags = string.Join(",", products.Product_Tags.Select(t => t.Tag).ToList());
             return View(products);
         }
 
@@ -122,14 +126,62 @@ namespace MyEshop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,ProductTitle,ShortDescription,Text,Price,ImageName,CreateDate")] Products products)
+        public ActionResult Edit([Bind(Include = "ProductID,ProductTitle,ShortDescription,Text,Price,ImageName,CreateDate")] Products products, List<int> selectedGroups, HttpPostedFileBase imageProduct, string tags)
         {
             if (ModelState.IsValid)
             {
+                if (imageProduct != null && imageProduct.IsImage())
+                {
+                    if (products.ImageName != "NoPhoto.png")
+                    {
+                        System.IO.File.Delete(Server.MapPath("/Images/ProductImages/" + products.ImageName));
+                        System.IO.File.Delete(Server.MapPath("/Images/ProductImages/Thumb/" + products.ImageName));
+                    }
+
+                    products.ImageName = Guid.NewGuid().ToString() + Path.GetExtension(imageProduct.FileName);
+                    imageProduct.SaveAs(Server.MapPath("/Images/ProductImages/" + products.ImageName));
+                    ImageResizer img = new ImageResizer();
+                    img.Resize(Server.MapPath("/Images/ProductImages/" + products.ImageName),
+                        Server.MapPath("/Images/ProductImages/Thumb/" + products.ImageName));
+
+                }
                 db.Entry(products).State = EntityState.Modified;
+
+                db.Product_Tags.Where(t => t.ProductID == products.ProductID).ToList().ForEach(t => db.Product_Tags.Remove(t));
+
+                if (!string.IsNullOrEmpty(tags))
+                {
+                    string[] tag = tags.Split(',');
+                    foreach (string t in tag)
+                    {
+                        db.Product_Tags.Add(new Product_Tags()
+                        {
+                            ProductID = products.ProductID,
+                            Tag = t.Trim()
+                        });
+                    }
+                }
+
+
+                db.Product_Selected_Groups.Where(g => g.ProductID == products.ProductID).ToList().ForEach(g => db.Product_Selected_Groups.Remove(g));
+
+                foreach (int selectedGroup in selectedGroups)
+                {
+                    db.Product_Selected_Groups.Add(new Product_Selected_Groups()
+                    {
+                        ProductID = products.ProductID,
+                        GroupID = selectedGroup
+                    });
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.SelectedGroups = selectedGroups;
+            ViewBag.Groups = db.Product_Groups.ToList();
+            ViewBag.Tags = tags;
+
             return View(products);
         }
 
@@ -158,6 +210,55 @@ namespace MyEshop.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+        public ActionResult Gallery(int id)
+        {
+            ViewBag.Galleries = db.Product_Galleries.Where(p => p.ProductID == id).ToList();
+            return View(new Product_Galleries()
+            {
+                ProductID = id
+            });
+        }
+
+
+        [HttpPost]
+        public ActionResult Gallery(Product_Galleries galleries, HttpPostedFileBase imgUp)
+        {
+            if (ModelState.IsValid)
+            {
+                if (imgUp != null && imgUp.IsImage())
+                {
+                    galleries.ImageName = Guid.NewGuid().ToString() + Path.GetExtension(imgUp.FileName);
+                    imgUp.SaveAs(Server.MapPath("/Images/ProductImages/" + galleries.ImageName));
+                    ImageResizer img = new ImageResizer();
+                    img.Resize(Server.MapPath("/Images/ProductImages/" + galleries.ImageName),
+                        Server.MapPath("/Images/ProductImages/Thumb/" + galleries.ImageName));
+                    db.Product_Galleries.Add(galleries);
+                    db.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Gallery", new { id = galleries.ProductID });
+        }
+
+
+
+        public ActionResult DeleteGallery(int id)
+        {
+            var gallery = db.Product_Galleries.Find(id);
+
+
+            System.IO.File.Delete(Server.MapPath("/Images/ProductImages/" + gallery.ImageName));
+            System.IO.File.Delete(Server.MapPath("/Images/ProductImages/Thumb/" + gallery.ImageName));
+
+            db.Product_Galleries.Remove(gallery);
+            db.SaveChanges();
+            return RedirectToAction("Gallery", new { id = gallery.ProductID });
+        }
+
+
+
 
         protected override void Dispose(bool disposing)
         {

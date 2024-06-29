@@ -42,7 +42,9 @@ namespace DataLayer
         public string ImageName { get; set; }
 
 
+
         [Display(Name = "تاریخ ایجاد")]
+        [DisplayFormat(DataFormatString = "{0: yyyy/MM/dd}")]
         public System.DateTime CreateDate { get; set; }
     }
 }

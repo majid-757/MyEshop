@@ -1303,6 +1303,7 @@
     <Content Include="ckeditor\_samples\adobeair\run.bat" />
     <Content Include="ckeditor\_samples\adobeair\run.sh" />
     <Content Include="ckeditor\_samples\assets\output_for_flash.fla" />
+    <Content Include="Areas\Admin\Views\Products\Gallery.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1339,6 +1340,7 @@
     <Compile Include="Utilities\ImageResizer.cs" />
     <Compile Include="Utilities\MyEshopRoleProvider.cs" />
     <Compile Include="Utilities\PartialToStringClass.cs" />
+    <Compile Include="Utilities\PersianCulture.cs" />
     <Compile Include="Utilities\RecaptchaHelper.cs" />
     <Compile Include="Utilities\SendEmail.cs" />
   </ItemGroup>
