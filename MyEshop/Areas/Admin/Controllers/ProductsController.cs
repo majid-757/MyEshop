@@ -259,6 +259,38 @@ namespace MyEshop.Areas.Admin.Controllers
 
 
 
+        public ActionResult ProductFeatures(int id)
+        {
+            ViewBag.Features = db.Product_Features.Where(f => f.ProductID == id).ToList();
+            ViewBag.FeaturesID = new SelectList(db.Features, "FeaturesID", "FeaturesTitle");
+            return View(new Product_Features()
+            {
+                ProductID = id
+            });
+        }
+
+
+
+        [HttpPost]
+        public ActionResult ProductFeatures(Product_Features productFeatures)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Product_Features.Add(productFeatures);
+                db.SaveChanges();
+            }
+            
+            return RedirectToAction("ProductFeatures", new { id = productFeatures.ProductID });
+        }
+
+
+        public void DeleteFeature(int id)
+        {
+            var feature = db.Product_Features.Find(id);
+            db.Product_Features.Remove(feature);
+            db.SaveChanges();
+        }
+
 
         protected override void Dispose(bool disposing)
         {
