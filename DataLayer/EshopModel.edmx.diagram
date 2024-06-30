@@ -22,6 +22,9 @@
         <EntityTypeShape EntityType="MyEshop_DBModel.Product_Features" Width="1.5" PointX="10.625" PointY="4.5" />
         <AssociationConnector Association="MyEshop_DBModel.FK_Product_Features_Features" />
         <AssociationConnector Association="MyEshop_DBModel.FK_Product_Features_Products" />
+        <EntityTypeShape EntityType="MyEshop_DBModel.Product_Comments" Width="1.5" PointX="7.625" PointY="11.375" />
+        <AssociationConnector Association="MyEshop_DBModel.FK_Product_Comments_Product_Comments" />
+        <AssociationConnector Association="MyEshop_DBModel.FK_Product_Comments_Products" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

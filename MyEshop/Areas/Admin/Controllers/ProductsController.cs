@@ -165,14 +165,18 @@ namespace MyEshop.Areas.Admin.Controllers
 
                 db.Product_Selected_Groups.Where(g => g.ProductID == products.ProductID).ToList().ForEach(g => db.Product_Selected_Groups.Remove(g));
 
-                foreach (int selectedGroup in selectedGroups)
+                if (selectedGroups != null && selectedGroups.Any())
                 {
-                    db.Product_Selected_Groups.Add(new Product_Selected_Groups()
+                    foreach (int selectedGroup in selectedGroups)
                     {
-                        ProductID = products.ProductID,
-                        GroupID = selectedGroup
-                    });
+                        db.Product_Selected_Groups.Add(new Product_Selected_Groups()
+                        {
+                            ProductID = products.ProductID,
+                            GroupID = selectedGroup
+                        });
+                    }
                 }
+
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -279,7 +283,7 @@ namespace MyEshop.Areas.Admin.Controllers
                 db.Product_Features.Add(productFeatures);
                 db.SaveChanges();
             }
-            
+
             return RedirectToAction("ProductFeatures", new { id = productFeatures.ProductID });
         }
 
