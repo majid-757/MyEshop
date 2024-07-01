@@ -1,3 +1,19 @@
 ﻿.field-validation-valid {
     display: none;
 }
+
+
+.filter input[type=text]{
+    width: 100% !important;
+}
+
+
+.filter input[type=checkbox] {
+    margin: 5px;
+}
+
+
+
+.filter ul {
+    padding: 5px;
+}

@@ -69,20 +69,20 @@
         <div class="container">
             <span class="responsive-list"><i class="fa fa-th-list"></i></span>
             <ul>
+                <li><a href="/"> صفحه ی اصلی </a></li>
+                <li><a href="/Archive"> آرشیو محصولات </a></li>
+                @*<li><a href=""> منوی شماره یک </a></li>
                 <li><a href=""> منوی شماره یک </a></li>
                 <li><a href=""> منوی شماره یک </a></li>
                 <li><a href=""> منوی شماره یک </a></li>
-                <li><a href=""> منوی شماره یک </a></li>
-                <li><a href=""> منوی شماره یک </a></li>
-                <li><a href=""> منوی شماره یک </a></li>
-                <li><a href=""> منوی شماره یک </a></li>
+                <li><a href=""> منوی شماره یک </a></li>*@
             </ul>
 
             <!-- Search -->
             <div class="form-search">
                 <span><i class="fa fa-search"></i></span>
-                <form action="" method="get">
-                    <input type="text" placeholder=" جستجو کنید ..." class="border-radius">
+                <form action="/Search" method="get">
+                    <input type="text" placeholder=" جستجو کنید ..." name="q" class="border-radius">
                     <button type="submit" class="border-radius"> بگرد </button>
                 </form>
             </div>
@@ -98,63 +98,66 @@
     <!-- End slider -->
 
     <div class="container margin-top-25">
-        <aside class="col-md-3 col-sm-4 right-side-content">
-            <!-- Basket -->
-            <section class="border-radius basket-side">
-                <header><h3> سبد خرید شما  </h3></header>
-                <article>
-                    <ul>
-                        <li>
-                            <img class="border-radius" src="/Content/img/1.jpg">
-                            <div class="left-basket">
-                                <a href="">محصول شماره یک <span class="border-radius"> 2 </span></a>
-                            </div>
-                        </li>
-                        <li>
-                            <img class="border-radius" src="/Content/img/1.jpg">
-                            <div class="left-basket">
-                                <a href="">محصول شماره یک <span class="border-radius"> 2 </span></a>
-                            </div>
-                        </li>
-                        <li>
-                            <img class="border-radius" src="/Content/img/1.jpg">
-                            <div class="left-basket">
-                                <a href="">محصول شماره یک <span class="border-radius"> 2 </span></a>
-                            </div>
-                        </li>
-                    </ul>
-                    <a href="" class="show-basket-button border-radius">مشاهده سبد خرید</a>
-                </article>
-            </section>
-            <!-- End Basket -->
-            <!-- compare -->
-            <section class="border-radius compare-side">
-                <header><h3> لیست مقایسه </h3></header>
-                <article>
-                    <ul>
-                        <li>
-                            <i class="delete-compare">X</i>
-                            <a href="">محصول شماره یک </a>
-                        </li>
-                        <li>
-                            <i class="delete-compare">X</i>
-                            <a href="">محصول شماره یک </a>
-                        </li>
-                        <li>
-                            <i class="delete-compare">X</i>
-                            <a href="">محصول شماره یک </a>
-                        </li>
-                    </ul>
-                    <a href="" class="show-compare-list border-radius">مشاهده لیست مقایسه</a>
-                </article>
-            </section>
-            <!-- End compare -->
-            <!-- Category -->
-            @Html.Action("ShowGroups", "Product", new {area=""})
-            <!-- End Category -->
-            <!-- Category -->
-            <!-- End Category -->
-        </aside>
+	    <aside class="col-md-3 col-sm-4 right-side-content">
+            @RenderSection("Filters", false)
+		    <!-- Basket -->
+		    <section class="border-radius basket-side">
+			    <header>
+				    <h3> سبد خرید شما </h3></header>
+			    <article>
+				    <ul>
+					    <li>
+						    <img class="border-radius" src="/Content/img/1.jpg">
+						    <div class="left-basket">
+							    <a href="">محصول شماره یک <span class="border-radius"> 2 </span></a>
+						    </div>
+					    </li>
+					    <li>
+						    <img class="border-radius" src="/Content/img/1.jpg">
+						    <div class="left-basket">
+							    <a href="">محصول شماره یک <span class="border-radius"> 2 </span></a>
+						    </div>
+					    </li>
+					    <li>
+						    <img class="border-radius" src="/Content/img/1.jpg">
+						    <div class="left-basket">
+							    <a href="">محصول شماره یک <span class="border-radius"> 2 </span></a>
+						    </div>
+					    </li>
+				    </ul>
+				    <a href="" class="show-basket-button border-radius">مشاهده سبد خرید</a>
+			    </article>
+		    </section>
+		    <!-- End Basket -->
+		    <!-- compare -->
+		    <section class="border-radius compare-side">
+			    <header>
+				    <h3> لیست مقایسه </h3></header>
+			    <article>
+				    <ul>
+					    <li>
+						    <i class="delete-compare">X</i>
+						    <a href="">محصول شماره یک </a>
+					    </li>
+					    <li>
+						    <i class="delete-compare">X</i>
+						    <a href="">محصول شماره یک </a>
+					    </li>
+					    <li>
+						    <i class="delete-compare">X</i>
+						    <a href="">محصول شماره یک </a>
+					    </li>
+				    </ul>
+				    <a href="" class="show-compare-list border-radius">مشاهده لیست مقایسه</a>
+			    </article>
+		    </section>
+		    <!-- End compare -->
+		    <!-- Category -->
+		    @Html.Action("ShowGroups", "Product", new { area = "" })
+		    <!-- End Category -->
+		    <!-- Category -->
+		    <!-- End Category -->
+	    </aside>
         <div class="col-md-9 col-sm-8 left-side-content">
 
             @*<section class="last-products">

@@ -82,7 +82,7 @@
             <!-- End Chart -->
             <!-- Comment -->
             <div id="comments" class="tab-pane fade">
-                <div class="comment-layer">
+                <div class="comment-layer" id="commentProduct">
                     @Html.Action("CreateComment")
 
                     <ul class="comment-list" id="listComment">
@@ -104,7 +104,7 @@
 
         @foreach (var item in Model.Product_Tags)
         {
-            <a href="">@item.Tag</a>
+            <a href="/Search?q=@item.Tag">@item.Tag</a>
         }
 
     </section>
@@ -120,6 +120,12 @@
         $("#Email").val("");
         $("#WebSite").val("");
         $("#Comment").val("");
+        $("#ParentID").val("");
+    }
+
+    function ReplyComment(id) {
+        $("#ParentID").val(id);
+        $("html, body").delay(1000).animate({ scrollTop: $('#commentProduct').offset().top }, 1000);
     }
 </script>
 
