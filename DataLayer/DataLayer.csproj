@@ -93,6 +93,8 @@
       <DependentUpon>EshopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MetaDataClasses\FeaturesMetaData.cs" />
+    <Compile Include="MetaDataClasses\OrderDetailsMetaData.cs" />
+    <Compile Include="MetaDataClasses\OrdersMetaData.cs" />
     <Compile Include="MetaDataClasses\ProductsMetaData.cs" />
     <Compile Include="MetaDataClasses\Product_CommentsMetaData.cs" />
     <Compile Include="MetaDataClasses\Product_FeaturesMetaData.cs" />
@@ -102,6 +104,12 @@
     <Compile Include="MetaDataClasses\Product_TagsMetaData.cs" />
     <Compile Include="MetaDataClasses\RolesMetaData.cs" />
     <Compile Include="MetaDataClasses\UsersMetaData.cs" />
+    <Compile Include="OrderDetails.cs">
+      <DependentUpon>EshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Orders.cs">
+      <DependentUpon>EshopModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Products.cs">
       <DependentUpon>EshopModel.tt</DependentUpon>
     </Compile>
