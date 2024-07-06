@@ -2,12 +2,18 @@
 
 
 <div class="slider-layer">
-	<div id="slider-one" class="owl-carousel">
-		@foreach (var item in Model)
-		{
-			<div class="item">
-				<a href="@item.Url"><img src="/Images/Slider/@item.ImageName" title="@item.Title"></a>
-			</div>
-		}
-	</div>
+    <div id="slider-one" class="owl-carousel">
+
+
+        @foreach (var item in Model)
+        {
+            <div class="item">
+                <a href="@item.Url"><img src="/Images/Slider/@item.ImageName" title="@item.Title"></a>
+            </div>
+        }
+    </div>
 </div>
+
+
+
+@*style="width:500px;height:1200px;"*@

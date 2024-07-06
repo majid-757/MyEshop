@@ -143,6 +143,7 @@
       <DependentUpon>EshopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\CompareListViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\RecaptchaResponseViewModel.cs" />
     <Compile Include="ViewModels\ShopCartViewModel.cs" />
