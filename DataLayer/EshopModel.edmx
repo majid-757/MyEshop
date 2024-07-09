@@ -106,6 +106,14 @@
           <Property Name="RoleTitle" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
+        <EntityType Name="SiteVisit">
+          <Key>
+            <PropertyRef Name="VisitID" />
+          </Key>
+          <Property Name="VisitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IP" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="Slider">
           <Key>
             <PropertyRef Name="SlideID" />
@@ -299,6 +307,7 @@
           <EntitySet Name="Product_Tags" EntityType="Self.Product_Tags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SiteVisit" EntityType="Self.SiteVisit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slider" EntityType="Self.Slider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
@@ -433,6 +442,7 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <EntitySet Name="Slider" EntityType="MyEshop_DBModel.Slider" />
+          <EntitySet Name="SiteVisit" EntityType="MyEshop_DBModel.SiteVisit" />
         </EntityContainer>
         <EntityType Name="Users">
           <Key>
@@ -733,6 +743,14 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Url" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="SiteVisit">
+          <Key>
+            <PropertyRef Name="VisitID" />
+          </Key>
+          <Property Name="VisitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IP" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -875,6 +893,15 @@
                 <ScalarProperty Name="ImageName" ColumnName="ImageName" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="SlideID" ColumnName="SlideID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SiteVisit">
+            <EntityTypeMapping TypeName="MyEshop_DBModel.SiteVisit">
+              <MappingFragment StoreEntitySet="SiteVisit">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="VisitID" ColumnName="VisitID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

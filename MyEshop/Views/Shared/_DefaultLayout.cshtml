@@ -52,7 +52,7 @@
     <header class="header-site">
         <div class="container">
             <div class="col-md-7 col-sm-7 logo-layer">
-                <a href="" class="logo"><img src="/Content/img/logo.jpeg" style="width: 100px; height: auto;"></a>
+                <a href="/" class="logo"><img src="/Content/img/logo.jpeg" style="width: 100px; height: auto;"></a>
                 <h1>فروشگاه <span>آنلایــــــن</span> </h1>
                 <h2>لوازم یدکی سعیدی</h2>
             </div>
@@ -98,24 +98,41 @@
     <!-- End slider -->
 
     <div class="container margin-top-25">
-        <aside class="col-md-3 col-sm-4 right-side-content">
-            @RenderSection("Filters", false)
-            <!-- Basket -->
-            <div id="showCart">
-                @Html.Action("ShowCart", "ShopCart")
-            </div>
-            <!-- End Basket -->
-            <!-- compare -->
-            <div id="compare">
-                @Html.Action("ListCompare", "Compare")
-            </div>
-            <!-- End compare -->
-            <!-- Category -->
-            @Html.Action("ShowGroups", "Product", new { area = "" })
-            <!-- End Category -->
-            <!-- Category -->
-            <!-- End Category -->
-        </aside>
+	    <aside class="col-md-3 col-sm-4 right-side-content">
+            @if (User.Identity.IsAuthenticated)
+            {
+	            <section class="border-radius category-side">
+		            <header><h3> پنل کاربری </h3></header>
+		            <article>
+			            <ul>
+				            <li>
+					            <a href="/UserPanel/Account/ChangePassword">تغییر کلمه عبور</a>
+				            </li>
+				            <li>
+					            <a href="/Account/LogOff">خروج از حساب کاربری</a>
+				            </li>
+			            </ul>
+		            </article>
+	            </section>
+            }
+		    @RenderSection("Filters", false)
+		    <!-- Basket -->
+		    <div id="showCart">
+			    @Html.Action("ShowCart", "ShopCart", new { area = "" })
+		    </div>
+		    <!-- End Basket -->
+		    <!-- compare -->
+		    <div id="compare">
+			    @Html.Action("ListCompare", "Compare", new { area = "" })
+		    </div>
+		    <!-- End compare -->
+		    <!-- Category -->
+		    @Html.Action("ShowGroups", "Product", new { area = "" })
+		    <!-- End Category -->
+		    <!-- Category -->
+		    <!-- End Category -->
+		    @Html.Action("VisitSite", "Home", new { area = "" })
+	    </aside>
         <div class="col-md-9 col-sm-8 left-side-content">
 
 
@@ -134,18 +151,14 @@
                     <header><h3> دسترسی سریع </h3></header>
                     <article>
                         <ul>
-                            <li><a href=""> صفحه اصلی </a></li>
-                            <li><a href=""> ورود به سایت </a></li>
-                            <li><a href=""> عضویت در سایت </a></li>
-                            <li><a href=""> قوانین سایت </a></li>
-                            <li><a href=""> راهنمای خرید </a></li>
-                            <li><a href=""> سوالات متداول </a></li>
-                            <li><a href=""> ورود به سایت </a></li>
-                            <li><a href=""> عضویت در سایت </a></li>
+                            <li><a href="/"> صفحه اصلی </a></li>
+                            <li><a href="/Login"> ورود به سایت </a></li>
+                            <li><a href="/Register"> عضویت در سایت </a></li>
+
                         </ul>
                     </article>
                 </section>
-                <section class="col-lg-4 col-md-4 permalink-section">
+                @*<section class="col-lg-4 col-md-4 permalink-section">
                     <header><h3> لینک های مفید </h3></header>
                     <article>
                         <ul>
@@ -159,7 +172,7 @@
                             <li><a href="">پرسش های متداول </a></li>
                         </ul>
                     </article>
-                </section>
+                </section>*@
                 <section class="col-lg-4 col-md-4 contact-section">
                     <header><h3> تماس با ما </h3></header>
                     <article>
@@ -176,10 +189,10 @@
             <div class="container">
                 <div class="col-lg-8 col-md-8 col-sm-6">
                     <ul>
-                        <li><a href=""> خانه </a></li>
-                        <li><a href="">قوانین سایت </a></li>
-                        <li><a href=""> درباره ما </a></li>
-                        <li><a href=""> تماس با ما </a></li>
+                        <li><a href="/"> خانه </a></li>
+                        <li><a href="/">قوانین سایت </a></li>
+                        <li><a href="/"> درباره ما </a></li>
+                        <li><a href="/"> تماس با ما </a></li>
                     </ul>
                     <p>Ⓒ تمام حقوق مادی ومعنوی این سایت متعلق به " <a href=""> لوازم یدکی سعیدی </a> " می باشد.</p>
                 </div>
